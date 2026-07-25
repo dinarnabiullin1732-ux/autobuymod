@@ -1,0 +1,16 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "ru.malfix.autobuy.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "MinecraftClientMixin",
+    "ClientPlayerEntityMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "HandledScreenMixin",
+    "ItemStackTooltipMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

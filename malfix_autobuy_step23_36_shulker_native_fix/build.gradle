@@ -1,0 +1,56 @@
+plugins {
+    id 'fabric-loom' version '1.11-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.fabricmc.net/' }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // Step 22.7: Nashorn is bundled WITHOUT its ASM dependencies.
+    // Do not include org.ow2.asm jars here: Minecraft/Fabric/Mixin already load ASM,
+    // and bundling another ASM copy causes loader constraint crashes before Minecraft starts.
+    implementation(include("org.openjdk.nashorn:nashorn-core:15.4")) {
+        transitive = false
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 21
+}
+
+// Avoid producing a -sources.jar. If that file is accidentally placed in mods, mixins will fail to load.
+tasks.matching { it.name == "sourcesJar" }.configureEach {
+    enabled = false
+}

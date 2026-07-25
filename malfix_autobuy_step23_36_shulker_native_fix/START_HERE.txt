@@ -1,0 +1,76 @@
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 12: GUI + items from your old JS script.
+Open GUI: .mab gui or RShift+G.
+Use Reset script/Import script, set prices, enable targets, Save.
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 11: config + dynamic targets.
+Commands: .mab config, .mab targets, .mab set delay 300, .mab target add "Label" 12000000 "contains".
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 10.1: cleanup/stability patch.
+Test: .mab loop 10 3 or RShift+L.
+Check that server buy result is not duplicated and source=limited-loop.
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 10: Limited safe-loop.
+Test key: RShift+L.
+Command: .mab loop 10 3.
+Stop: .mab stop or RShift+L.
+Unlimited full-auto is still disabled.
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 9: One automatic cycle.
+Test key: RShift+A.
+Command: .mab cycle.
+Full auto is still disabled.
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 8: Buy result detector.
+Test: RShift+R, RShift+B, then RShift+Ctrl+B.
+Command: .mab result.
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 7: Controlled real buy click.
+Dry-run: RShift+B.
+Real click: RShift+Ctrl+B.
+No full-auto yet.
+
+START HERE
+
+Use: 00_FAST_BUILD_NO_REDOWLOAD.cmd
+
+Step 6: Buy dry-run only. No real buying.
+Keys: RShift+R refresh, RShift+B buy dry-run, RShift+D debug.
+
+START HERE — Malfix AutoBuy Step 5
+
+1. Run: 00_SET_JAVA21_AND_BUILD.cmd
+2. Put the built JAR from build\libs into Minecraft mods.
+3. In game:
+   .mab on
+   /ah
+   RightShift+R
+
+Step 5 tests refresh/fingerprint cycle only. It does not buy items.

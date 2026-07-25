@@ -1,0 +1,20 @@
+Step 22.27
+
+Фиксы:
+1) No-money guard:
+   - Если сервер пишет "Ошибка! У Вас не хватает Монет!", покупочный цикл больше не продолжает кликать дорогие лоты.
+   - Ошибка NO_MONEY теперь обрабатывается даже когда buy executor уже успел завершиться как AUCTION_CHANGED_AFTER_CLICK и источник в логе был source=unbound.
+   - Запоминается минимальная цена лота, на котором сервер ответил NO_MONEY; следующие лоты с такой же или большей общей ценой временно блокируются до клика.
+   - Улучшено чтение баланса из scoreboard: теперь учитываются prefix/suffix team-строк, а не только playerName.
+
+2) Расстак:
+   - Перед кликами расстака теперь закрывается именно handled screen через player.closeHandledScreen(), а не только визуально client.openScreen(null).
+   - Это важно, потому что иначе currentScreenHandler мог оставаться от /ah или хранилища, и клик по slot 36..44 попадал не в player inventory. В логах это проявлялось как pickup_wait/pickup_failed при needs=true и canNow=true.
+   - После хранилища и перед sellcycle закрытие GUI тоже переведено на handled-close.
+
+Проверка:
+.mab unstack status
+.mab unstack once
+.mab sellcycle 10 300
+
+В логах после no-money больше не должно быть BUY_CLICKED по тому же дорогому лоту.

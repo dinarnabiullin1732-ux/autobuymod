@@ -1,0 +1,12 @@
+Step 22.70
+
+Fixes parser debug arm not writing anything after opening /ah search.
+
+Root cause: Step 22.69 auto-dump still used auctionView.readAuctionSlots(). That method returns empty when the current GenericContainerScreen title is not recognised by isAuctionOpen(). Parser-debug is supposed to diagnose exactly this class of problem, so the arm watcher could silently keep waiting forever until timeout.
+
+Changes:
+- .mab parsedebug arm "Label" now dumps the raw GenericContainerScreen container slots directly, bypassing auctionView.isAuctionOpen().
+- Debug dump now triggers when the opened container has non-empty raw slots.
+- If the container stays empty for ~1.2s, it dumps anyway so latest.log still shows the title and slot state.
+- RightShift+debug-key while parser-debug arm is active also uses the raw container dump.
+- No gameplay logic changed: refresh 300ms, seller/autosell 500ms, Anti-AFK, potion drag, and Step 22.66 chestplate matcher are unchanged.

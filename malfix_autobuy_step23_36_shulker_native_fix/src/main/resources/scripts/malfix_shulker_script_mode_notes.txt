@@ -1,0 +1,6 @@
+Step 22.5 switched the in-mod shulker controller to script-style behavior.
+The logic follows the uploaded shalk.js flow: close current GUI, select a hotbar shulker,
+right-click it, QUICK_MOVE up to 9 non-shulker player-inventory slots into the opened
+container, close the shulker, and restore /ah.
+
+The uploaded JS file is kept as shalk_uploaded_reference.js for comparison.
